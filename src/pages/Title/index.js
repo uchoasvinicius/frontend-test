@@ -30,7 +30,7 @@ export default function Title(props) {
              style={{backgroundImage: 'url(' + ((movie.Poster !== "N/A") ? movie.Poster : "https://advancepetproduct.com/wp-content/uploads/2019/04/no-image.png") + ')'}}></div>
         <div className="container title-movie">
           <Row>
-              <Col xs={10} md={{offset: 5}} lg={{span: 12, offset: 4}}  className="mb-4">
+              <Col xs={10} md={{offset: 5}} lg={{span: 8, offset: 4}}  className="mb-4">
               <h3>{movie.Year} {(movie.Runtime !== 'N/A') ? ' - '+ movie.Runtime : ''}</h3>
               <h1>{movie.Title}</h1>
               <h3 className="mt-2"><span className="rating">{movie.imdbRating}</span>&nbsp; {(movie.Runtime !== 'N/A') ? movie.imdbVotes + ' votos ' : ''}</h3>
@@ -67,12 +67,12 @@ export default function Title(props) {
             <p><strong>Premiações: </strong>{movie.Awards}</p>
             {/*<p>{movie.Ratings}</p>*/}
             <br/>
-            <p><strong>{(movie.Type) ? 'Filme' : 'Série'}</strong></p>
-            <p><strong>Lançamento do DVD:</strong> {movie.DVD}</p>
+            <p><strong>{(movie.Type == 'movie') ? 'Filme' : 'Série'}</strong></p>
+            <p><strong>Lançamento do DVD:</strong> {(movie.DVD) ? movie.DVD : 'Não Informado'}</p>
 
-            <p><strong>Produzido por:</strong>  {movie.Production}</p>
-            <p><strong>Site do Filme:</strong> {movie.Website}</p>
-            <p className="mt-2 mb-2">Bilheteria: <span className="money">{movie.BoxOffice}</span></p>
+            <p><strong>Produzido por:</strong> {(movie.Production) ? movie.Production : 'Não Informado'} {movie.Production}</p>
+            <p><strong>Site do Filme:</strong> {(movie.Website) ? movie.Website : 'Não Informado'}{movie.Website}</p>
+            <p className="mt-2 mb-2"><strong>Bilheteria:</strong> {(movie.BoxOffice) ? <span className="money">{movie.BoxOffice}</span> : 'Não Informado'}</p>
           </Col>
         </Row>
       </div>
