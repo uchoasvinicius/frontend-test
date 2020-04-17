@@ -1,0 +1,37 @@
+.big-404 {
+  font-size: 98px;
+}
+
+.go-home {
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+  a {
+    padding: 20px;
+    color: #fff;
+    border-radius: 3px;
+    border: 1px solid #fff;
+    background: #171717;
+    font-size: 22px;
+    text-decoration: none;
+    transition: background, border ease-in-out 0.1s;
+    display: inline-block;
+
+    &:hover {
+      background: #a01010;
+      border-color: #a01010;
+
+      transition: background, border ease-in-out 0.1s;
+    }
+  }
+}
+
+.message-holder {
+  text-align: center;
+  min-height: 40vh;
+}
+
+.popcorn {
+  width: 100%;
+}
+
