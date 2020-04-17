@@ -12,7 +12,7 @@ export default function Home() {
     e.preventDefault();
 
     history.push({
-      pathname: `title/${search}`
+      pathname: `search/${search}`
     })
   }
 

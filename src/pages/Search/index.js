@@ -19,7 +19,6 @@ export default function Home(props) {
     perPage: 10,
     currentPage: parseInt((page.page) ? --page.page : --page)
   })
-  let loading = true;
   let {search} = props.match.params
 
   const history = useHistory();
@@ -41,17 +40,14 @@ export default function Home(props) {
 
   useEffect(() => {
     let page = pagination.currentPage
-    loading = true;
     api.get(`/?s=${search}&apikey=${api.defaults.apikey}&page=${++page}`)
       .then(response => {
         setResultsData(response.data)
         setResults(response.data.Search)
-        loading = false
       })
       .catch(err => {
         history.push('/404')
         console.log(err)
-        loading = false
       })
 
 
@@ -70,7 +66,7 @@ export default function Home(props) {
         {(results !== undefined && results.length) ? results.map(result => (
           <Col key={result.imdbID} xs={12} sm={6} md={4} lg={3}>
             <a className="clean-link" href={'/title/' + result.imdbID}>
-              <div className="film-card">
+              <div className="film-card-blur">
                 <div className="square">
                   <div className="square-blur"
                        style={{backgroundImage: 'url(' + ((result.Poster !== "N/A") ? result.Poster : "https://advancepetproduct.com/wp-content/uploads/2019/04/no-image.png") + ')'}}></div>
