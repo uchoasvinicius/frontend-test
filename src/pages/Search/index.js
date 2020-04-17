@@ -3,48 +3,28 @@ import './style.scss';
 import api from "../../services/api";
 import {Col, Row} from "react-bootstrap";
 import ReactPaginate from "react-paginate";
-import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
+import * as qs from 'query-string';
 
 export default function Home(props) {
 
   const [resultsData, setResultsData] = useState([])
   const [results, setResults] = useState([])
+  let page = (props.location.search) ? qs.parse(props.location.search) : 1
   const [pagination, setPagination] = useState({
     offset: 1,
     data: [],
     elements: [],
     perPage: 10,
-    currentPage: 2
+    currentPage: parseInt((page.page) ? --page.page : --page)
   })
 
   let {search} = props.match.params
-  // let [results, setResults] = useState([]);
-  // let [resultsData, setresultsData] = useState([]);
-  // let [paginationData, setPaginationData] = useState([{
-  //   offset: 0,
-  //   data: [],
-  //   elements: [],
-  //   perPage: 10,
-  //   currentPage: 0,
-  // }]);
-  function setElementsForCurrentPage(currentPage) {
-    // let elements = pagination
-    //   .slice(pagination.offset, pagination.offset + pagination.perPage)
-    //   .map(post =>
-    //     (<img src="{post.thumburl}"/>)
-    //   );
-    //
-    // setPagination(prevState => ({
-    //
-    //   ...prevState,           // copy all other key-value pairs of food object
-    //   elements: elements
-    //
-    // }))
-  }
+
+  const history = useHistory();
 
   async function handlePageClick(data) {
-    console.log(data.selected)
-    const selectedPage = data.selected;
+    let selectedPage = data.selected;
     const offset = selectedPage * pagination.perPage;
     await setPagination(prevState => ({
       ...prevState,
@@ -52,14 +32,15 @@ export default function Home(props) {
       offset: offset
     }))
 
-    props.location.page = data.selected
-    setElementsForCurrentPage(data.selected);
-
+    history.push({
+      search: `?page=${++selectedPage}`,
+    })
+    setResults([])
   }
 
   useEffect(() => {
-
-    api.get(`/?s=${search}&apikey=${api.defaults.apikey}&page=${pagination.currentPage+1}`)
+    let page = pagination.currentPage
+    api.get(`/?s=${search}&apikey=${api.defaults.apikey}&page=${++page}`)
       .then(response => {
         setResultsData(response.data)
         setResults(response.data.Search)
@@ -98,7 +79,9 @@ export default function Home(props) {
             </a>
 
           </Col>
-        )) : 'Carregando...'}
+        )) : <Col className="loading-text">
+          <h4>Carregando...</h4>
+        </Col>}
         {/*<Col>*/}
         {/*  <ul>{results.map(result => (*/}
         {/*    <li key={result.imdbID}>*/}
@@ -108,7 +91,8 @@ export default function Home(props) {
         {/*</Col>*/}
       </Row>
       <Row>
-        <Col>
+        <Col className="mt-5 mb-5 pagination-center">
+          {(results.length) ? (
           <ReactPaginate
             previousLabel={"← Anterior"}
             nextLabel={"Próximo →"}
@@ -122,6 +106,7 @@ export default function Home(props) {
             disabledClassName={"disabled"}
             activeClassName={"active"}
           />
+          ): ''}
         </Col>
       </Row>
     </div>
