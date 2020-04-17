@@ -5,10 +5,11 @@ import {Col, Row} from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import {useHistory} from "react-router-dom";
 import * as qs from 'query-string';
+import NotFound from "../404";
 
 export default function Home(props) {
 
-  const [resultsData, setResultsData] = useState([])
+  const [resultsData, setResultsData] = useState({})
   const [results, setResults] = useState([])
   let page = (props.location.search) ? qs.parse(props.location.search) : 1
   const [pagination, setPagination] = useState({
@@ -18,7 +19,7 @@ export default function Home(props) {
     perPage: 10,
     currentPage: parseInt((page.page) ? --page.page : --page)
   })
-
+  let loading = true;
   let {search} = props.match.params
 
   const history = useHistory();
@@ -40,14 +41,20 @@ export default function Home(props) {
 
   useEffect(() => {
     let page = pagination.currentPage
+    loading = true;
     api.get(`/?s=${search}&apikey=${api.defaults.apikey}&page=${++page}`)
       .then(response => {
         setResultsData(response.data)
         setResults(response.data.Search)
+        loading = false
       })
       .catch(err => {
+        history.push('/404')
         console.log(err)
+        loading = false
       })
+
+
   }, [pagination.currentPage])
 
   return (
@@ -60,7 +67,7 @@ export default function Home(props) {
         </Col>
       </Row>
       <Row className="mt-3">
-        {(results.length) ? results.map(result => (
+        {(results !== undefined && results.length) ? results.map(result => (
           <Col key={result.imdbID} xs={12} sm={6} md={4} lg={3}>
             <a className="clean-link" href={'/title/' + result.imdbID}>
               <div className="film-card">
@@ -79,34 +86,34 @@ export default function Home(props) {
             </a>
 
           </Col>
-        )) : <Col className="loading-text">
-          <h4>Carregando...</h4>
-        </Col>}
-        {/*<Col>*/}
-        {/*  <ul>{results.map(result => (*/}
-        {/*    <li key={result.imdbID}>*/}
-        {/*      <pre>{JSON.stringify(result)}</pre>*/}
-        {/*    </li>*/}
-        {/*  ))}</ul>*/}
-        {/*</Col>*/}
+        )) : (resultsData.Response === "False" && resultsData.Error) ?
+          <Col>
+            <Col className="mt-4"><h1>Nada encontrado :(</h1> <h3>Tente buscar novamente, só que com outras
+              palavras-chave</h3></Col>
+          </Col>
+          :
+          <Col className="loading-text">
+            <h4>Carregando...</h4>
+          </Col>
+        }
       </Row>
       <Row>
         <Col className="mt-5 mb-5 pagination-center">
-          {(results.length) ? (
-          <ReactPaginate
-            previousLabel={"← Anterior"}
-            nextLabel={"Próximo →"}
-            breakLabel={<span className="gap">...</span>}
-            pageCount={pagination.pageCount}
-            onPageChange={handlePageClick}
-            forcePage={pagination.currentPage}
-            containerClassName={"pagination"}
-            previousLinkClassName={"previous_page"}
-            nextLinkClassName={"next_page"}
-            disabledClassName={"disabled"}
-            activeClassName={"active"}
-          />
-          ): ''}
+          {(results !== undefined && results.length) ? (
+            <ReactPaginate
+              previousLabel={"← Anterior"}
+              nextLabel={"Próximo →"}
+              breakLabel={<span className="gap">...</span>}
+              pageCount={(resultsData.totalResults / 10.0 > parseInt(resultsData.totalResults / 10)) ? parseInt(resultsData.totalResults / 10) + 1 : parseInt(resultsData.totalResults / 10)}
+              onPageChange={handlePageClick}
+              forcePage={pagination.currentPage}
+              containerClassName={"pagination"}
+              previousLinkClassName={"previous_page"}
+              nextLinkClassName={"next_page"}
+              disabledClassName={"disabled"}
+              activeClassName={"active"}
+            />
+          ) : ''}
         </Col>
       </Row>
     </div>
