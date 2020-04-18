@@ -24,7 +24,7 @@ export default function Home() {
       .all([
         api.get(`?apikey=${api.defaults.apikey}&i=tt6751668`),
         api.get(`?apikey=${api.defaults.apikey}&i=tt0240772`),
-        api.get(`?apikey=${api.defaults.apikey}&i=tt8579674`),
+        api.get(`?apikey=${api.defaults.apikey}&i=tt2975590`),
         api.get(`?apikey=${api.defaults.apikey}&i=tt3281548`),
         api.get(`?apikey=${api.defaults.apikey}&i=tt4154796`)
       ])
@@ -64,18 +64,23 @@ export default function Home() {
               <h2 className="subtitle">ESCOLHA DO EDITOR</h2>
             </Col>
           </Row>
-          <Row className="">
-            <Col xs={12} sm={6} md={4} lg>
-              <div className="film-card">
-                <p>
-                  <span className="note-badge">9.3</span>
-                  <img
-                    src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg"/>
-                </p>
-                <h4>2010 - Ação/Suspense</h4>
-                <h3>A Origem</h3>
-              </div>
-            </Col>
+          <Row className="mt-3">
+            {(movies !== undefined && movies.length) ? movies.map(result => (
+              <Col key={result.imdbID} xs={12} sm={6} md={4} lg>
+                <a className="clean-link" href={'/title/' + result.imdbID}>
+                  <div className="film-card">
+                    <p>
+                      <span className="note-badge">{result.imdbRating}</span>
+                      <img
+                        src={(result.Poster !== "N/A") ? result.Poster : 'https://advancepetproduct.com/wp-content/uploads/2019/04/no-image.png'}
+                        />
+                    </p>
+                    <h4>{result.Year.replace(/(.*?–.*?)–.*/g, ' ')} - {(result.Type == 'movie' ? 'Filme' : 'Série')}</h4>
+                    <h3>{result.Title}</h3>
+                  </div>
+                </a>
+              </Col>
+            )) : ''}
           </Row>
         </section>
       </section>

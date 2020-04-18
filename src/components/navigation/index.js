@@ -27,9 +27,8 @@ export default function Navbar() {
                   </svg>
                 </a>
                   <ul>
-                    <li><a href="#">Themes</a></li>
-                    <li><a href="#">Plugins</a></li>
-                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/Favoritos">Github</a></li>
                   </ul>
                 </li>
               </ul>
@@ -42,8 +41,7 @@ export default function Navbar() {
         <div className="nav-right d-none d-md-flex">
           <ul>
             <li><a href="#">Início</a></li>
-            <li><a href="#">Estou com sorte</a></li>
-            <li><a href="#">Favoritos</a></li>
+            <li><a href="#">Github</a></li>
           </ul>
         </div>
       </div>

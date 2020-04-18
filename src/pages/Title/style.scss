@@ -1,5 +1,5 @@
 .hero-title{
-  height: 250px;
+  height: 450px;
   opacity: 0.4;
   position: absolute;
   width: 100%;
@@ -14,7 +14,7 @@
 .square{
   position: relative;
   width: 100%;
-  height: 250px;
+  height: 320px;
   overflow: hidden;
 }
 .image-movie, .title-movie{
@@ -29,11 +29,22 @@
     max-width: 200px;
     margin-top: -35px;
   }
-
   .title-movie{
     margin-bottom: 40px;
   }
+  .like{
+    bottom: -10px;
+    top: auto !important;
+  }
+
 }
+@media screen and (max-width: 996px){
+  .like{
+    bottom: 0px;
+    top: auto !important;
+  }
+}
+
 .title-movie{
   left:0;
   right:0;
@@ -80,4 +91,13 @@
   color: #FDD84D;
   text-decoration: none;
   font-weight: 600;
+}
+.like{
+  svg{
+    fill: white
+  }
+  right: 0;
+  width: 40px;
+  position: absolute;
+  top: -20px;
 }

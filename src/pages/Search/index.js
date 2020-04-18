@@ -60,8 +60,8 @@ export default function Home(props) {
       <Row>
         <Col>
           <h2 className="subtitle">RESULTADOS DA PESQUISA PARA "{search}"</h2>
-          <small>{resultsData.totalResults} resultados</small>
-          {(props.category) ? 'true' : 'false'}
+          <small>{(resultsData.totalResults) ? resultsData.totalResults+ ' resultados' : ''}</small>
+          {/*{(props.category) ? 'true' : 'false'}*/}
         </Col>
       </Row>
       <Row className="mt-3">
