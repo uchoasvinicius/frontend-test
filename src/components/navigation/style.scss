@@ -22,7 +22,6 @@ ul {
   list-style: none;
   li {
     display: inline-block;
-
     a {
       padding: 20px;
       color: #eee;
@@ -33,6 +32,64 @@ ul {
 }
 
 .nav-right {
-
   margin-left: auto !important;
+}
+
+.menu-holder{
+  nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+  }
+
+  li {
+    display:inline-block;
+    background-color: #474747;
+  }
+
+  nav a {
+    display:block;
+    padding:0 10px;
+    color:#FFF;
+    font-size:20px;
+    line-height: 60px;
+    text-decoration:none;
+  }
+
+  ul:first-child, ul:first-child>li:first-child {
+    background: none !important;
+  }
+
+  /* Hide Dropdowns by Default */
+  nav ul ul {
+    display: none;
+    position: absolute;
+    top: 60px; /* the height of the main nav */
+    right: 0px;
+  }
+
+  /* Display Dropdowns on Hover */
+  nav ul li:hover > ul {
+    display:inherit;
+  }
+
+  /* Fisrt Tier Dropdown */
+  nav ul ul li {
+    width:170px;
+    float:none;
+    display:list-item;
+    position: relative;
+  }
+
+  /* Second, Third and more Tiers	*/
+  nav ul ul ul li {
+    position: relative;
+    top:-60px;
+    left:170px;
+  }
+
+
+  /* Change this in order to change the Dropdown symbol */
+  li > a:only-child:after { content: ''; }
 }

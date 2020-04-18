@@ -13,6 +13,8 @@ export default function Routes(){
         <Route path="/" exact component={Home}></Route>
         <Route path="/search/:search" component={Search}></Route>
         <Route path="/title/:title" component={Title}></Route>
+        <Route path="/favorites" render={(props) => <Search {...props} favorites={true} />}>
+        </Route>
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>

@@ -19,13 +19,21 @@
 }
 .image-movie, .title-movie{
   margin-top: -150px;
-
 }
 .image-movie{
   width: 100%;
 
 }
+@media screen and (max-width: 768px){
+  .image-movie{
+    max-width: 200px;
+    margin-top: -35px;
+  }
 
+  .title-movie{
+    margin-bottom: 40px;
+  }
+}
 .title-movie{
   left:0;
   right:0;

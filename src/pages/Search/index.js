@@ -5,7 +5,6 @@ import {Col, Row} from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import {useHistory} from "react-router-dom";
 import * as qs from 'query-string';
-import NotFound from "../404";
 
 export default function Home(props) {
 
@@ -39,6 +38,8 @@ export default function Home(props) {
   }
 
   useEffect(() => {
+    // alert(props.route.isCategory)
+    console.log(props.category)
     let page = pagination.currentPage
     api.get(`/?s=${search}&apikey=${api.defaults.apikey}&page=${++page}`)
       .then(response => {
@@ -60,11 +61,12 @@ export default function Home(props) {
         <Col>
           <h2 className="subtitle">RESULTADOS DA PESQUISA PARA "{search}"</h2>
           <small>{resultsData.totalResults} resultados</small>
+          {(props.category) ? 'true' : 'false'}
         </Col>
       </Row>
       <Row className="mt-3">
         {(results !== undefined && results.length) ? results.map(result => (
-          <Col key={result.imdbID} xs={12} sm={6} md={4} lg={3}>
+          <Col key={result.imdbID} xs={6} md={4} lg={3}>
             <a className="clean-link" href={'/title/' + result.imdbID}>
               <div className="film-card-blur">
                 <div className="square">

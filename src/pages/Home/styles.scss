@@ -114,6 +114,15 @@
   }
 }
 @media (max-width: 768px) {
+  .text-holder {
+    h1 {
+      font-size: 34px;
+      font-weight: 800 !important;
+    }
+    h3{
+      font-size: 16px;
+    }
+  }
   .flex-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

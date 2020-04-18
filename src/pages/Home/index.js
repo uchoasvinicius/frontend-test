@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {Row, Col} from 'react-bootstrap';
+import axios from 'axios'
 
 import './styles.scss'
+import api from "../../services/api";
 
 export default function Home() {
   const [search, setSearch] = useState('');
+  const [movies, setMovies] = useState('');
   const history = useHistory()
 
   function handleSearch(e) {
@@ -15,6 +18,24 @@ export default function Home() {
       pathname: `search/${search}`
     })
   }
+
+  useEffect(() => {
+    const response = axios
+      .all([
+        api.get(`?apikey=${api.defaults.apikey}&i=tt6751668`),
+        api.get(`?apikey=${api.defaults.apikey}&i=tt0240772`),
+        api.get(`?apikey=${api.defaults.apikey}&i=tt8579674`),
+        api.get(`?apikey=${api.defaults.apikey}&i=tt3281548`),
+        api.get(`?apikey=${api.defaults.apikey}&i=tt4154796`)
+      ])
+      .then(response => {
+        return response.map(movie =>
+          setMovies(oldArray => [...oldArray, movie.data]));
+      })
+      .catch(error => {
+        return error.response.data;
+      });
+  }, [])
 
   return (
     <>
@@ -37,30 +58,6 @@ export default function Home() {
             </div>
           </form>
         </div>
-        <section className="container category-container">
-          <Row>
-            <Col>
-              <h2 className="subtitle">PRINCIPAIS CATEGORIAS</h2>
-            </Col>
-          </Row>
-          <Row className="">
-            <Col xs={12} sm={6} md={4} lg>
-              <div className="category"><p>Comédia</p></div>
-            </Col>
-            <Col xs={12} sm={6} md={4} lg>
-              <div className="category"><p>Comédia</p></div>
-            </Col>
-            <Col xs={12} sm={6} md={4} lg>
-              <div className="category"><p>Comédia</p></div>
-            </Col>
-            <Col xs={12} sm={6} md={4} lg>
-              <div className="category"><p>Comédia</p></div>
-            </Col>
-            <Col xs={12} sm={6} md={4} lg>
-              <div className="category"><p>Comédia</p></div>
-            </Col>
-          </Row>
-        </section>
         <section className="container editors-container">
           <Row>
             <Col>
@@ -70,63 +67,6 @@ export default function Home() {
           <Row className="">
             <Col xs={12} sm={6} md={4} lg>
               <div className="film-card">
-
-                <p>
-                  <span className="note-badge">9.3</span>
-                  <img
-                    src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg"/>
-                </p>
-                <h4>2010 - Ação/Suspense</h4>
-                <h3>A Origem</h3>
-              </div>
-
-
-            </Col>
-            <Col xs={12} sm={6} md={4} lg>
-              <div className="film-card">
-
-                <p>
-                  <span className="note-badge">9.3</span>
-                  <img
-                    src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg"/>
-                </p>
-                <h4>2010 - Ação/Suspense</h4>
-                <h3>A Origem</h3>
-              </div>
-
-
-            </Col>
-            <Col xs={12} sm={6} md={4} lg>
-              <div className="film-card">
-
-                <p>
-                  <span className="note-badge">9.3</span>
-                  <img
-                    src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg"/>
-                </p>
-                <h4>2010 - Ação/Suspense</h4>
-                <h3>A Origem</h3>
-              </div>
-
-
-            </Col>
-            <Col xs={12} sm={6} md={4} lg>
-              <div className="film-card">
-
-                <p>
-                  <span className="note-badge">9.3</span>
-                  <img
-                    src="https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg"/>
-                </p>
-                <h4>2010 - Ação/Suspense</h4>
-                <h3>A Origem</h3>
-              </div>
-
-
-            </Col>
-            <Col xs={12} sm={6} md={4} lg>
-              <div className="film-card">
-
                 <p>
                   <span className="note-badge">9.3</span>
                   <img
