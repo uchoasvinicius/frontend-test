@@ -13,7 +13,6 @@ export default function Home() {
 
   function handleSearch(e) {
     e.preventDefault();
-
     history.push({
       pathname: `search/${search}`
     })
@@ -40,8 +39,8 @@ export default function Home() {
   return (
     <>
       <div className="hero-bg"></div>
-      <section className="container-all">
-        <div className="hero-container">
+      <section>
+        <div className="hero-container container-all">
           <div className="text-holder">
             <h1>O que quer assistir hoje?</h1>
             <h3>Encontre classificações e críticas dos mais recentes filmes e programas de TV.</h3>

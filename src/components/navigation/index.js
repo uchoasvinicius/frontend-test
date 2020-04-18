@@ -1,11 +1,10 @@
-import React from 'react';
-
+import React, {useState} from 'react';
 import './style.scss'
 import logo from '../../assets/logo.svg'
-import {Link} from "react-router-dom";
-import Dropdown from 'react-bootstrap/Dropdown'
+import {useHistory} from 'react-router-dom';
 
 export default function Navbar() {
+
   return (
     <header className="navbar-holder">
       <div className="navbar">
@@ -15,9 +14,7 @@ export default function Navbar() {
           </a>
         </div>
         <div className="nav-right d-flex d-md-none menu-holder">
-
           <i className="menu-icon">
-
             <nav>
               <ul>
                 <li><a href="#">
@@ -28,20 +25,17 @@ export default function Navbar() {
                 </a>
                   <ul>
                     <li><a href="/">Início</a></li>
-                    <li><a href="/Favoritos">Github</a></li>
+                    <li><a href="https://github.com/uchoasvinicius/frontend-test">Github</a></li>
                   </ul>
                 </li>
               </ul>
             </nav>
-
           </i>
-
-
         </div>
         <div className="nav-right d-none d-md-flex">
           <ul>
-            <li><a href="#">Início</a></li>
-            <li><a href="#">Github</a></li>
+            <li><a href="/">Início</a></li>
+            <li><a href="https://github.com/uchoasvinicius/frontend-test">Github</a></li>
           </ul>
         </div>
       </div>
